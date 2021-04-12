@@ -120,6 +120,27 @@ jQuery(document).ready(function(){
             'callbackFinished' : function(segment){
                 // ACTIVATE spin button
                 //is_spinning   = false;
+                // SHOW prize
+
+                return;
+
+                <?php if(isset($this->a_Submission['spin_status']) && $this->a_Submission['spin_status'] == 0){ ?>
+                jQuery.ajax({
+                    type        : 'POST',
+                    url         : '<?php echo base_url();?>spin/ajax-update-spin',
+                    dataType    : 'json',
+                    data        : {spin_status:1},
+                    beforeSend  : function(){
+
+                    },
+                    error       : function(o_rtn){
+
+                    },
+                    success     : function(o_rtn){
+                        
+                    }
+                });
+                <?php } ?>
             }
         }
     });

@@ -48,25 +48,25 @@ Class Spin extends Z_Controller
         $this->a_Submission = $Q->result();
 
         $_SESSION['ss_Submission']	= $this->a_Submission;
-        // CHECK if postback
-        if(isset($_POST['hdd_Action']))
-        {
-            // ----------------------------------------------------------------------- //
-            // UPDATE submission spin status
-            // ----------------------------------------------------------------------- //
-            $sql	= "	UPDATE submission SET spin_status = 1 WHERE id = {$_SESSION['ss_Submission']['id']}";
-            // BEGIN mysql transaction
-            $this->db->trans_start();
-            // EXECUTE sql query
-            $Q	= $this->db->query($sql);
-            // END mysql transaction
-            $this->db->trans_complete();
-
-            redirect(base_url().'thank-you');
-        }
         // ----------------------------------------------------------------------- //
         // LOAD views and render
         // ----------------------------------------------------------------------- //
         $this->p_render('spin/index');
+    }
+
+    function ajax_update_spin()
+    {
+        // ----------------------------------------------------------------------- //
+        // UPDATE submission spin status
+        // ----------------------------------------------------------------------- //
+        $sql    = "	UPDATE submissions SET spin_status = 1 WHERE id = {$_SESSION['ss_Submission']['id']}";echo $sql;
+        // BEGIN mysql transaction
+        $this->db->trans_start();
+        // EXECUTE sql query
+        $Q	= $this->db->query($sql);
+        // END mysql transaction
+        $this->db->trans_complete();
+
+        $_SESSION['ss_Submission']['spin_status']   = 1;
     }
 }
