@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+# Turn on URL rewriting
+RewriteEngine On
+
+# Protect application and system files from being viewed
+RewriteRule ^(application|modules|system) - [F,L]
+
+# Allow any files or directories that exist to be displayed directly
+RewriteCond $1 !^(index\.php|media|images|captcha|css|js|robots\.txt)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rewrite all other URLs to index.php/URL
+#RewriteRule .* index.php/$0 [PT,L]
+RewriteRule ^(.*)$ index.php?/$1 [L,QSA] 
+</IfModule>
+
+#php_flag zlib.output_compression on

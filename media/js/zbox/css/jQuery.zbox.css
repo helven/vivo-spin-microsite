@@ -1,0 +1,81 @@
+.zbox {
+	display: none;
+	height: 100%;
+	left: 0;
+	opacity: 0;
+	position: fixed;
+	top: 0;
+	transition: 0.2s ease-in-out;
+	width: 100%;
+	z-index: 2147483647;
+}
+
+.zbox .main_slot {
+	background: #FFF;
+	border-radius: 5px;
+	border: 1px solid #000;
+	min-width: 500px;
+	padding: 20px 30px;
+	position: fixed;
+	top: 44%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 2147483647;
+}
+	.zbox .main_slot .body {
+		max-height: 80vh;
+		overflow: hidden;
+	}
+	.zbox .main_slot .zbox_prev,
+	.zbox .main_slot .zbox_next,
+	.zbox .main_slot .zbox_close {
+		background: #FFF;
+		color: #000;
+		display: block;
+		cursor: pointer;
+		height: 31px;
+		line-height: 31px;
+		position: absolute;
+		text-align: center;
+		width: 31px;
+	}
+	.zbox .main_slot .zbox_prev,
+	.zbox .main_slot .zbox_next {
+		top: 50%;
+		line-height: 28px;
+		transform: translate(-50%, -50%);
+	}
+	.zbox .main_slot .zbox_prev {
+		left: 0;
+	}
+	.zbox .main_slot .zbox_next {
+		right: -31px;
+	}
+	.zbox .main_slot .zbox_close {
+		background: #666;
+		border: 1px solid transparent;
+		border-radius: 100px;
+		box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+		color: #FFF;
+		display: block;
+		height: auto;
+		line-height: 23px;
+		padding: 15px;
+		right: -10px;
+		text-decoration: none !important;
+		top: -10px;
+		width: auto;
+	}
+	
+.zbox .overlay {
+	background: #000;
+	display: block;
+	opacity: 0.8;
+	height: 100%;
+	width: 100%;
+	z-index: 2147483646;
+}
+
+.zbox_html {
+	display: none;
+}
