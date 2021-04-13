@@ -20,6 +20,7 @@ Class Index extends Z_Controller
         if($this->config['environment'] == 'live' && date('Y-m-d H:i:s') >= '2021-07-01 00:00:00')
         {
             redirect(base_url().'index/campaign-end/');
+            exit;
         }
         // ----------------------------------------------------------------------- //
         // INIT
@@ -90,6 +91,7 @@ Class Index extends Z_Controller
                     $_SESSION['ss_Msgbox']['type']		= 'error';
 
                     redirect(base_url());
+                    exit;
                 }
 
                 $a_Imei = $Q->result();
@@ -111,6 +113,7 @@ Class Index extends Z_Controller
                         $_SESSION['ss_Msgbox']['type']		= 'error';
 
                         redirect(base_url());
+                        exit;
                     }
 
                     $a_Submission = $Q->result();
@@ -118,10 +121,10 @@ Class Index extends Z_Controller
                     $_SESSION['ss_Submission']	= $a_Submission;
                     
                     redirect(base_url().'spin');
+                    exit;
                 }
                 elseif($a_Imei['status'] == '1') // ADD new submission
                 {
-                    $a_Imei = $Q->result();dd($a_Imei);
                     // ----------------------------------------------------------------------- //
                     // CHECK if today redemtion stil available for that area
                     // ----------------------------------------------------------------------- //
@@ -165,6 +168,7 @@ Class Index extends Z_Controller
                         );
                         $prize  = $a_prize_pool[rand(0, count($a_prize_pool) - 1)];
                     }
+                    
                     // ----------------------------------------------------------------------- //
                     // UPDATE IMEI status
                     // ----------------------------------------------------------------------- //
@@ -202,7 +206,7 @@ Class Index extends Z_Controller
                                     name        = '{$a_Insert['name']}',
                                     phone       = '{$a_Insert['phone']}',
                                     area        = {$a_Insert['area']},
-                                    imei        = {$a_Insert['imei']},
+                                    imei        = '{$a_Insert['imei']}',
                                     spin_status = {$a_Insert['spin_status']},
                                     spin_prize  = {$a_Insert['spin_prize']},
                                     created_at  = '{$a_Insert['created_at']}',
@@ -214,11 +218,12 @@ Class Index extends Z_Controller
                     $submissionID   = $Q->insert_id();
                     // END mysql transaction
                     $this->db->trans_complete();
-                    
+                    $a_Insert['id'] = $submissionID;
+
                     $_SESSION['ss_Submission']	= $a_Insert;
-                    $_SESSION['ss_Submission']['submission_id']	= $submissionID;
                     
                     redirect(base_url().'spin');
+                    exit;
                 }
                 else
                 {
@@ -227,6 +232,7 @@ Class Index extends Z_Controller
                     $_SESSION['ss_Msgbox']['type']		= 'error';
 
                     redirect(base_url());
+                    exit;
                 }
             }
         }
