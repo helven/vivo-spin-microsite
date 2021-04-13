@@ -175,9 +175,7 @@ jQuery(document).ready(function(){
     
     
     <?php if($this->formError){ ?>
-        jQuery(this).zboxOpen({
-            text: '<?php echo $this->formErrorMsg;?>'
-        });
+        msgbox('Error', '<?php echo $this->formErrorMsg;?>');
     <?php } ?>
         
     jQuery('#txt_Name').keyup(function(e){

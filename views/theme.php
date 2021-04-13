@@ -59,6 +59,7 @@
         </style>
     </head>
     <body id="body_<?php echo ucfirst($this->platform);?>" class="page_fadein page_fadeout">
+        <?php require_once('zbox_popup'.EXT);?>
         <div id="div_PageLoader"><img src="<?php echo base_url();?>media/images/page_loader.svg" /></div>
         <div class="scroll_wrapper scrollbar-macosx">
             <div id="div_Page-<?php echo $this->pageName;?>" class="site_container">
@@ -68,7 +69,7 @@
                 <div class="footer_container">
                     <div class="footer_left">
                         <div>
-                            <a id="a_Privacy" href="http://www.baskinrobbins.com.sg/content/baskinrobbins/en/privacypolicy.html" target="_blank">Privacy Policy</a>
+                            <a id="a_Privacy" href="<?php echo base_url();?>privacy_policy/" target="_blank">Privacy Policy</a>
                             | <a id="a_TnC" href="<?php echo base_url();?>tnc/" target="_blank">Terms of Use</a>
                         </div>
                         <div di="div_Copyright">
@@ -101,6 +102,10 @@
                 {
                     jQuery('html').addClass('float_bottom_footer');
                 }
+                else
+                {
+                    jQuery('html').removeClass('float_bottom_footer');
+                }
             }
             
             /*jQuery('#a_Privacy').click(function(){
@@ -115,6 +120,11 @@
                     callback: zbox_callback
                 });
             });*/
+            <?php if(isset($_SESSION['ss_Msgbox']) && $_SESSION['ss_Msgbox'] != ''){ ?>
+                msgbox('<?php echo $_SESSION['ss_Msgbox']['title'];?>', '<?php echo $_SESSION['ss_Msgbox']['message'];?>');
+
+                <?php unset($_SESSION['ss_Msgbox']);?>
+            <?php } ?>
         });
         jQuery(window).on('load', function(){
             jQuery('body').removeClass('page_fadeout');
@@ -122,6 +132,16 @@
         jQuery(window).on('unload', function(){
             jQuery('body').addClass('page_fadeout');
         });
+
+        function msgbox(title, message)
+        {
+            jQuery('#div_PopupMsgbox .zbox_msgbox_title').html(title);
+            jQuery('#div_PopupMsgbox .zbox_msgbox_message').html(message);
+            jQuery(this).zboxOpen({
+                text: jQuery('#div_PopupMsgbox').html(),
+                callback: zbox_callback
+            });
+        }
         
         function zbox_callback()
         {

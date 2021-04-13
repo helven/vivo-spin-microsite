@@ -13,7 +13,7 @@ elseif(strpos($config['base_url'], 'happybrday.baskinrobbins.com.my'))
 {
     $config['active_group'] = 'live';
 }
-elseif(strpos($config['base_url'], 'vivomicro.senjitsu.com'))
+elseif(strpos($config['base_url'], 'vivospin.senjitsu.com'))
 {
     $config['active_group'] = 'staging';
 }
@@ -45,10 +45,10 @@ $config['client_staging']['mail_admin_name']    = 'vivo';
 $config['client_staging']['mail_mailtype']      = 'html';
 
 $config['staging']['environment']       = 'staging';
-$config['staging']['dir_base_url']      = $config['protocol'].((isset($config['staging']['base_url']))?$config['staging']['base_url']:'vivomicro.senjitsu.com'); 
-$config['staging']['base_url']          = $config['protocol'].((isset($config['staging']['base_url']))?$config['staging']['base_url']:'vivomicro.senjitsu.com');
+$config['staging']['dir_base_url']      = $config['protocol'].((isset($config['staging']['base_url']))?$config['staging']['base_url']:'vivospin.senjitsu.com'); 
+$config['staging']['base_url']          = $config['protocol'].((isset($config['staging']['base_url']))?$config['staging']['base_url']:'vivospin.senjitsu.com');
 $config['staging']['media_url']         = $config['staging']['base_url'].'/media';
-$config['staging']['site_url']          = $config['protocol'].'vivomicro.senjitsu.com';
+$config['staging']['site_url']          = $config['protocol'].'vivospin.senjitsu.com';
 $config['staging']['storage_url']       = $config['protocol'].'www.senjitsu.com/vivostorage';
 $config['staging']['storage_path']       = '../vivostorage/';
 $config['staging']['mail_admin_email']  = 'marketing@vivo.com.my';

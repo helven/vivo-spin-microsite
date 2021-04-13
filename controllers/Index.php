@@ -67,11 +67,11 @@ Class Index extends Z_Controller
                 $this->formErrorMsg	.= 'Please agree to Terms and Conditions &amp; Privacy Policy.';
             }
             
-            // CLEAN $_POST
-            sec_clean_all_post($this->db->conn);
-
             if(!$this->formError)
             {
+                // CLEAN $_POST
+                sec_clean_all_post($this->db->conn);
+
                 // ----------------------------------------------------------------------- //
                 // CHECK if IMEI still available
                 // ----------------------------------------------------------------------- //
@@ -79,11 +79,22 @@ Class Index extends Z_Controller
                 $sql	= " SELECT *
                             FROM `imeis`
                             WHERE imeis.imei = '{$_POST['txt_IMEI']}'
-                                AND status = 1
                             LIMIT 0,1";
                 // EXECUTE sql query
                 $Q  = $this->db->query($sql);
-                if($Q->num_rows() <= 0) // GET submission info if IMEI redeemed to spin (redeem previously)
+                
+                if($Q->num_rows() <= 0)
+                {
+                    $_SESSION['ss_Msgbox']['title']		= 'Error';
+                    $_SESSION['ss_Msgbox']['message']	= 'Invalid IMEI.';
+                    $_SESSION['ss_Msgbox']['type']		= 'error';
+
+                    redirect(base_url());
+                }
+
+                $a_Imei = $Q->result();
+
+                if($a_Imei['status'] == '19') // GET submission info if IMEI redeemed to spin (redeemed previously)
                 {
                     // GENERATE sql query
                     $sql	= " SELECT *
@@ -95,23 +106,24 @@ Class Index extends Z_Controller
                     $Q  = $this->db->query($sql);
                     if($Q->num_rows() <= 0)
                     {
+                        $_SESSION['ss_Msgbox']['title']		= 'Error';
+                        $_SESSION['ss_Msgbox']['message']	= 'Invalid Submission.';
+                        $_SESSION['ss_Msgbox']['type']		= 'error';
+
                         redirect(base_url());
                     }
-                    
+
                     $a_Submission = $Q->result();
 
                     $_SESSION['ss_Submission']	= $a_Submission;
                     
                     redirect(base_url().'spin');
-
-                    //$this->formError	= TRUE;
-                    //$this->formErrorMsg	= addslashes('IMEI redeemed.');
                 }
-                else // ADD new submission
+                elseif($a_Imei['status'] == '1') // ADD new submission
                 {
-                    $a_Imei = $Q->result();
+                    $a_Imei = $Q->result();dd($a_Imei);
                     // ----------------------------------------------------------------------- //
-                    // CHECK if IMEI still available
+                    // CHECK if today redemtion stil available for that area
                     // ----------------------------------------------------------------------- //
                     $sql    = " SELECT COUNT(*) AS redemption_count
                                 FROM submissions
@@ -202,10 +214,19 @@ Class Index extends Z_Controller
                     $submissionID   = $Q->insert_id();
                     // END mysql transaction
                     $this->db->trans_complete();
+                    
                     $_SESSION['ss_Submission']	= $a_Insert;
                     $_SESSION['ss_Submission']['submission_id']	= $submissionID;
                     
                     redirect(base_url().'spin');
+                }
+                else
+                {
+                    $_SESSION['ss_Msgbox']['title']		= 'Error';
+                    $_SESSION['ss_Msgbox']['message']	= 'Invalid IMEI.';
+                    $_SESSION['ss_Msgbox']['type']		= 'error';
+
+                    redirect(base_url());
                 }
             }
         }

@@ -18,6 +18,7 @@
     }
     #div_Mid {
         margin-top: 528px;
+        padding-bottom: 66px;
         position: relative;
     }
     #div_Ketupat {
@@ -54,6 +55,9 @@
         text-align: center;
         width: 332px;
     }
+    .zbox_prize_container {
+        background: transparent url('<?php echo base_url();?>media/images/<?php echo $this->pageName;?>/prize-<?php echo $this->a_submission['spin_prize'];?>.jpg') no-repeat center 0;
+    }
 </style>
 <div class="container">
     <div class="row">
@@ -61,7 +65,7 @@
             <div id="div_SpinAndWin"></div>
             <div id="div_Mid">
                 <div id="div_Ketupat"></div>
-                <?php //if(isset($this->a_Submission['spin_status']) && $this->a_Submission['spin_status'] == 0){ ?>
+                <?php //if(isset($this->a_submission['spin_status']) && $this->a_submission['spin_status'] == 0){ ?>
                     <canvas id='canvas_Wheel' width="840" height="840">
                         Canvas not supported, use another browser.
                     </canvas>
@@ -97,6 +101,10 @@ jQuery(document).ready(function(){
     jQuery(this).keypress(function (e) {
         idleTime = 0;
     });
+    audio_click = new Audio('<?php echo base_url();?>media/audio/click.mp3');
+    audio_tick  = new Audio('<?php echo base_url();?>media/audio/tick.mp3');
+    audio_win   = new Audio('<?php echo base_url();?>media/audio/win.mp3');
+    audio_lose  = new Audio('<?php echo base_url();?>media/audio/lose.mp3');
     let o_TheWheel = new Winwheel({
         'canvasId'       : 'canvas_Wheel',
         'numSegments'       : total_prize,            // Specify number of segments.
@@ -117,14 +125,35 @@ jQuery(document).ready(function(){
             'type'     : 'spinToStop',
             'duration' : spin_duration,             // Duration in seconds.
             'spins'    : 8,             // Number of complete spins.
-            'callbackFinished' : function(segment){
+            'callbackSound'     : function(){
+                <?php if(isset($this->a_submission['spin_status']) && $this->a_submission['spin_status'] == 0){ ?>
+                    audio_tick.pause();
+                    audio_tick.currentTime = 0;
+                    audio_tick.play();
+                <?php } ?>
+            },
+            'callbackFinished'  : function(segment){
                 // ACTIVATE spin button
                 //is_spinning   = false;
+
                 // SHOW prize
+                jQuery(this).zboxOpen({
+                    text: jQuery('#div_PopupPrize').html(),//jQuery('<div>').append(jQuery('#div_PopupPrize').clone()).html(),
+                    callback: function(){}
+                });
 
+                <?php if(isset($this->a_submission['spin_status']) && $this->a_submission['spin_status'] == 0){ ?>
+                    <?php if($this->a_submission['spin_prize'] != 6){ ?>
+                        audio_win.currentTime = 0;
+                        audio_win.play();
+                    <?php }else{ ?>
+                        audio_lose.currentTime = 0;
+                        audio_lose.play();
+                    <?php } ?>
+                <?php } ?>
                 return;
-
-                <?php if(isset($this->a_Submission['spin_status']) && $this->a_Submission['spin_status'] == 0){ ?>
+                
+                <?php if(isset($this->a_submission['spin_status']) && $this->a_submission['spin_status'] == 0){ ?>
                 jQuery.ajax({
                     type        : 'POST',
                     url         : '<?php echo base_url();?>spin/ajax-update-spin',
@@ -152,13 +181,16 @@ jQuery(document).ready(function(){
     }
     loadedImg.src = '<?php echo base_url();?>media/images/<?php echo $this->pageName;?>/wheel.png';
 
-    <?php if(isset($this->a_Submission['spin_status']) && $this->a_Submission['spin_status'] == 0){ ?>
+    <?php if(isset($this->a_submission['spin_status']) && $this->a_submission['spin_status'] == 0){ ?>
         // spin_status == 0, allow spin
         jQuery('#btn_Spin').click(function(){
             if(is_spinning)
             {
                 return;
             }
+
+            audio_click.currentTime = 0;
+            audio_click.play();
 
             // RESET the wheel
             o_TheWheel.stopAnimation(false);  // Stop the animation, false as param so does not call callback function.
@@ -179,12 +211,16 @@ jQuery(document).ready(function(){
 
             // DEACTIVATE spin button
             is_spinning = true;
+
+            jQuery('#btn_Spin').css('opacity', 0.5);
         });
     <?php }else { ?>
         // spin_status == 1, auto spin
-        o_TheWheel.animation.stopAngle  = calculate_stop();
         o_TheWheel.animation.duration   = 0;
+        o_TheWheel.animation.stopAngle  = calculate_stop();
         o_TheWheel.startAnimation();
+
+        jQuery('#btn_Spin').css('opacity', 0.5);
     <?php } ?>
 });
 jQuery(window).on('load', function(){
@@ -198,7 +234,7 @@ function calculate_stop()
     // 4: 151-180
     // 5: 211-240
     // 6: 271-300
-    prize   = <?php echo (isset($this->a_Submission['spin_prize']) && $this->a_Submission['spin_prize'] != '')?$this->a_Submission['spin_prize']:6;?>;
+    prize   = <?php echo $this->a_submission['spin_prize'];?>;
     
     start   = (prize * prize_angle) - (prize_angle / 2) + 1 - prize_angle;
     if(start < 0)

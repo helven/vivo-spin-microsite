@@ -45,9 +45,9 @@ Class Spin extends Z_Controller
         {
             redirect(base_url());
         }
-        $this->a_Submission = $Q->result();
+        $this->a_submission = $Q->result();
 
-        $_SESSION['ss_Submission']	= $this->a_Submission;
+        $_SESSION['ss_Submission']	= $this->a_submission;
         // ----------------------------------------------------------------------- //
         // LOAD views and render
         // ----------------------------------------------------------------------- //
