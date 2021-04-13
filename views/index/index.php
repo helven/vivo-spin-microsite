@@ -182,7 +182,7 @@ jQuery(document).ready(function(){
 
     jQuery('#txt_Phone').keyup(function(e){
         // remove +6 - [space] ( )
-        /*phone   = jQuery('#txt_Phone').val();
+        phone   = jQuery('#txt_Phone').val();
         phone   = phone.replace('+6', '');
         phone   = phone.replace(' ', '');
         phone   = phone.replace('-', '');
@@ -196,7 +196,7 @@ jQuery(document).ready(function(){
             phone = phone.substr(1);
         }
 
-        jQuery('#txt_Phone').val(phone);*/
+        jQuery('#txt_Phone').val(phone);
 
         if(!is_empty(jQuery('#txt_Phone').val()))
         {
