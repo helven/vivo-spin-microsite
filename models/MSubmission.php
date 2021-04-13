@@ -15,12 +15,9 @@ class MSubmission extends Model
         // ----------------------------------------------------------------------- //
         $select = " SELECT
                         submissions.*, 
-                        attr_status.value AS status_value,
-                        players.name AS player_name,
-                        players.email AS player_email";
+                        attr_status.value AS status_value";
         $from   = " FROM submissions
-                        LEFT JOIN attr_status ON submissions.status = attr_status.id
-                        LEFT JOIN players ON submissions.player_id = players.id";
+                        LEFT JOIN attr_status ON submissions.status = attr_status.id";
         $where  = " WHERE 1 = 1";
         $cond   = set_condition($a_cond);
         // SET default order
@@ -78,7 +75,7 @@ class MSubmission extends Model
         if($Q->num_rows() > 0)
         {
             $a_data                 = $Q->result();
-            $a_rtn_data['a_data']   = $a_data[0];
+            $a_rtn_data['a_data']   = $a_data;
             $a_rtn_data['status']   = TRUE;
         }
         else

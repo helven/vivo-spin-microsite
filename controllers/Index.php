@@ -9,6 +9,14 @@ Class Index extends Z_Controller
     function __construct()
     {
         parent::__construct();
+        // ----------------------------------------------------------------------- //
+        // LOAD models
+        // ----------------------------------------------------------------------- //
+        $this->p_load_model('MSubmission');
+        // ----------------------------------------------------------------------- //
+        // INIT variable
+        // ----------------------------------------------------------------------- //
+        $this->MSubmission  = new MSubmission();
     }
 /* 
 | ------------------------------------------------------------------------------------------------------------------------------------------
@@ -25,7 +33,20 @@ Class Index extends Z_Controller
         // ----------------------------------------------------------------------- //
         // INIT
         // ----------------------------------------------------------------------- //
-        
+        $this->a_area = array(
+            'area_1'    => 'vivo E-Store',
+            'area_2'    => 'Kuala Lumpur 吉隆坡',
+            'area_3'    => 'Northern Selangor 雪北',
+            'area_4'    => 'Southern Selangor 雪南',
+            'area_5'    => 'Perak 霹雳',
+            'area_5'    => 'Pahang / Malacca 彭亨 / 马六甲',
+            'area_7'    => 'Penang 大槟城',
+            'area_8'    => 'Kelantan 吉兰丹',
+            'area_9'    => 'Johor 柔佛',
+            'area_10'   => 'Sabah 沙巴',
+            'area_11'   => 'Sarawak 沙捞越',
+        );
+
         $cond	= '';
         // CHECK if postback
         if(isset($_POST['hdd_Action']))
@@ -48,6 +69,15 @@ Class Index extends Z_Controller
                 $this->formErrorMsg	.= ($this->formErrorMsg != '')?'<br />':'';
                 $this->formErrorMsg	.= 'Please fill in your phone no.';
             }
+
+            preg_match_all('/\+6|\ |\-|\_|\(|\)/i', $_POST['txt_Phone'], $result);
+            if($result[0])
+            {
+                $this->formError	= TRUE;
+                $this->formErrorMsg	.= ($this->formErrorMsg != '')?'<br />':'';
+                $this->formErrorMsg	.= 'Invalid phone no.';
+            }
+
             $_POST['txt_IMEI']	= trim($_POST['txt_IMEI']);
             if(!isset($_POST['txt_IMEI']) || $_POST['txt_IMEI'] == '')
             {
@@ -67,12 +97,36 @@ Class Index extends Z_Controller
                 $this->formErrorMsg	.= ($this->formErrorMsg != '')?'<br />':'';
                 $this->formErrorMsg	.= 'Please agree to Terms and Conditions &amp; Privacy Policy.';
             }
-            
+
             if(!$this->formError)
             {
                 // CLEAN $_POST
                 sec_clean_all_post($this->db->conn);
 
+                // ----------------------------------------------------------------------- //
+                // CHECK if phone number is used
+                // ----------------------------------------------------------------------- //
+                $phone  = $_POST['txt_Phone'];
+                $phone   = str_replace(array('+6', ' ', '-', '_', '(', ')'), '', $phone);
+                $_POST['txt_Phone'] = $phone;
+
+                $a_cond= array(
+                    'table'     => 'submissions',
+                    'field'     => 'phone',
+                    'value'     => $_POST['txt_Phone'],
+                    'compare'=> '='
+                );
+                $a_submission   = $this->MSubmission->get_submission($a_cond);
+
+                if($a_submission['status'])
+                {
+                    $_SESSION['ss_Msgbox']['title']		= 'Opps!';
+                    $_SESSION['ss_Msgbox']['message']	= 'Phone number '.$_POST['txt_Phone'].' is used.';
+                    $_SESSION['ss_Msgbox']['type']		= 'error';
+
+                    redirect(base_url());
+                    exit;
+                }
                 // ----------------------------------------------------------------------- //
                 // CHECK if IMEI still available
                 // ----------------------------------------------------------------------- //
@@ -86,7 +140,7 @@ Class Index extends Z_Controller
                 
                 if($Q->num_rows() <= 0)
                 {
-                    $_SESSION['ss_Msgbox']['title']		= 'Error';
+                    $_SESSION['ss_Msgbox']['title']		= 'Opps!';
                     $_SESSION['ss_Msgbox']['message']	= 'Invalid IMEI.';
                     $_SESSION['ss_Msgbox']['type']		= 'error';
 
@@ -98,17 +152,17 @@ Class Index extends Z_Controller
 
                 if($a_Imei['status'] == '19') // GET submission info if IMEI redeemed to spin (redeemed previously)
                 {
-                    // GENERATE sql query
-                    $sql	= " SELECT *
-                                FROM `submissions`
-                                WHERE submissions.imei = '{$_POST['txt_IMEI']}'
-                                    AND status = 1
-                                LIMIT 0,1";
-                    // EXECUTE sql query
-                    $Q  = $this->db->query($sql);
-                    if($Q->num_rows() <= 0)
+                    $a_cond= array(
+                        'table'     => 'submissions',
+                        'field'     => 'imei',
+                        'value'     => $_POST['txt_IMEI'],
+                        'compare'=> '='
+                    );
+                    $a_submission   = $this->MSubmission->get_submission($a_cond);
+
+                    if(!$a_submission['status'])
                     {
-                        $_SESSION['ss_Msgbox']['title']		= 'Error';
+                        $_SESSION['ss_Msgbox']['title']		= 'Opps!';
                         $_SESSION['ss_Msgbox']['message']	= 'Invalid Submission.';
                         $_SESSION['ss_Msgbox']['type']		= 'error';
 
@@ -227,7 +281,7 @@ Class Index extends Z_Controller
                 }
                 else
                 {
-                    $_SESSION['ss_Msgbox']['title']		= 'Error';
+                    $_SESSION['ss_Msgbox']['title']		= 'Opps!';
                     $_SESSION['ss_Msgbox']['message']	= 'Invalid IMEI.';
                     $_SESSION['ss_Msgbox']['type']		= 'error';
 
@@ -247,14 +301,7 @@ Class Index extends Z_Controller
         // ----------------------------------------------------------------------- //
         // INIT
         // ----------------------------------------------------------------------- //
-        $a_Geo	= $this->_get_geo();
-        $_SESSION['ss_Geo']	= $a_Geo;
         
-        $this->geoCountryCode	= (in_array(strtolower($_SESSION['ss_Geo']['country_code']), array('my', 'sg')))?$_SESSION['ss_Geo']['country_code']:'MY';
-        $this->a_HomeLink		= array(
-            'my'	=> 'https://baskinrobbins.com.my/content/baskinrobbins/en.html',
-            'sg'	=> 'http://baskinrobbins.com.sg/content/baskinrobbins/en.html'
-        );
         // ----------------------------------------------------------------------- //
         // LOAD views and render
         // ----------------------------------------------------------------------- //

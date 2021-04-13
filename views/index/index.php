@@ -115,20 +115,15 @@
                     </div>
                     
                     <div class="input_wrapper">
-                        <div id="div_Location" class="input_dropdown"><span class="text"><?php echo set_value('hdd_Location', 'Location');?></span></div>
+                        <?php $area_id = set_value('hdd_Location', '');?>
+                        <?php $area = ($area_id != '')?$this->a_area['area_'.$area_id]:'Location';?>
+                        <div id="div_Location" class="input_dropdown"><span class="text"><?php echo $area;?></span></div>
                         <div id="div_LocationList" class="input_dropdown_list">
                             <ul id="ul_LocationList" class="scrollbar-dynamic">
-                                <li><span data-key="1">vivo E-Store</span></li>
-                                <li><span data-key="2">Kuala Lumpur 吉隆坡</span></li>
-                                <li><span data-key="3">Northern Selangor 雪北</span></li>
-                                <li><span data-key="4">Southern Selangor 雪南</span></li>
-                                <li><span data-key="5">Perak 霹雳</span></li>
-                                <li><span data-key="5">Pahang / Malacca 彭亨 / 马六甲</span></li>
-                                <li><span data-key="7">Penang 大槟城</span></li>
-                                <li><span data-key="8">Kelantan 吉兰丹</span></li>
-                                <li><span data-key="9">Johor 柔佛</span></li>
-                                <li><span data-key="10">Sabah 沙巴</span></li>
-                                <li><span data-key="11">Sarawak 沙捞越</span></li>
+                                <?php foreach($this->a_area as $key => $value){ ?>
+                                    <?php $key  = str_replace('area_', '', $key);?>
+                                    <li><span data-key="<?php echo $key;?>"><?php echo $value;?></span></li>
+                                <?php } ?>
                             </ul>
                         </div>
                         <span id="span_ErrorLocation" class="speech_bubble error">Please select your location.</span>
@@ -175,7 +170,7 @@ jQuery(document).ready(function(){
     
     
     <?php if($this->formError){ ?>
-        msgbox('Error', '<?php echo $this->formErrorMsg;?>');
+        msgbox('Opps!', '<?php echo $this->formErrorMsg;?>');
     <?php } ?>
         
     jQuery('#txt_Name').keyup(function(e){
@@ -186,6 +181,23 @@ jQuery(document).ready(function(){
     });
 
     jQuery('#txt_Phone').keyup(function(e){
+        // remove +6 - [space] ( )
+        /*phone   = jQuery('#txt_Phone').val();
+        phone   = phone.replace('+6', '');
+        phone   = phone.replace(' ', '');
+        phone   = phone.replace('-', '');
+        phone   = phone.replace('_', '');
+        phone   = phone.replace('(', '');
+        phone   = phone.replace(')', '');
+
+        // remove + and 6
+        if(phone.charAt(0) == 6 || phone.charAt(0) == '+')
+        {
+            phone = phone.substr(1);
+        }
+
+        jQuery('#txt_Phone').val(phone);*/
+
         if(!is_empty(jQuery('#txt_Phone').val()))
         {
             jQuery('#span_ErrorPhone').hide();

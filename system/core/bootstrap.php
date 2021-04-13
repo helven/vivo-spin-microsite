@@ -14,6 +14,7 @@ require_once(BASEPATH.'/config/database'.EXT);
 require_once(BASEPATH.'/system/core/Router'.EXT);
 
 require_once(BASEPATH.'/system/core/Database'.EXT);
+require_once(BASEPATH.'/system/core/Model'.EXT);
 require_once(BASEPATH.'/system/core/Controller'.EXT);
 
 require_once(BASEPATH.'/config/autoload'.EXT);
