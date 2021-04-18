@@ -10,8 +10,8 @@
     <div class="zbox_share_container">
         <div class="zbox_share_title">Share with your friends</div>
         <div class="zbox_share_buttons">
-            <a href="" target="_blank" class="zbox_share_button facebook"></a>
-            <a href="" target="_blank" class="zbox_share_button wechat"></a>
+            <a href="javascript:void(0)" class="zbox_share_button facebook"></a>
+            <a href="javascript:void(0)" class="zbox_share_button wechat"></a>
         </div>
     </div>
 </div>

@@ -27,6 +27,14 @@ button:focus {
     border: none;
     outline: 0;
 }
+/* Change the white to any color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active
+{
+    -webkit-box-shadow: 0 0 0 999px white inset !important;
+}
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------------
  * BOOTSTRAP MOD
  * ---------------------------------------------------------------------------------------------------------------------------------------------------------- */
@@ -256,7 +264,6 @@ footer {
     background-color: transparent;
 }
 .input_dropdown_list ul {
-    color: #CCC;
     list-style: none;
     padding: 0;
 }
@@ -266,11 +273,17 @@ footer {
 .input_textbox span.text,
 .input_textbox input[type=textbox] {
     border: 0;
-    color: #CCC;
+    color: #000;
     font-size: 30px;
     height: 82px;
     line-height: 82px;
     width: 100%;
+}
+.input_dropdown span.text {
+    color: #CCC;
+}
+.input_dropdown span.text.selected {
+    color: #000;
 }
 .input_checkbox .checkbox {
     background: transparent url('../images/checkbox_sprite.png') no-repeat 0 0;

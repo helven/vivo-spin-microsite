@@ -68,8 +68,8 @@ $config = $config[$config['active_group']];
 $config['row_per_page'] = 10;
 
 $config['title']    = 'vivo';
-$config['og_title'] = 'vivo';
-$config['og_desc']  = 'vivo';
+$config['og_title'] = 'vivo spin & Win';
+$config['og_desc']  = 'Hati rapat raya berkat. Get a new phone to stay connected with your lovely family and friends. You can now buy a vivo phone and stand a chance to win fabulous prizes worth up to RM 68,888 from 1st May 2021 until 16th May 2021.';
 
 $config['area_prize']   = array(
     '1' => 6,

@@ -465,3 +465,13 @@ if( ! function_exists('time_elapsed_string'))
     }
     
 }
+
+if( ! function_exists('clean_phone_no'))
+{
+    function clean_phone_no($str)
+    {
+        $str   = str_replace(array('+6', ' ', '-', '_', '(', ')'), '', $str);
+
+        return $str;
+    }
+}

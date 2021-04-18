@@ -23,7 +23,7 @@ Class Spin extends Z_Controller
 */
     function index()
     {
-        if($this->config['environment'] == 'live' && date('Y-m-d H:i:s') >= '2020-03-31 12:00:00')
+        if($this->config['environment'] == 'live' && date('Y-m-d H:i:s') >= '2020-05-17 00:00:00')
         {
             redirect(base_url().'index/campaign-end/');
         }
@@ -31,6 +31,25 @@ Class Spin extends Z_Controller
         {
             redirect(base_url());
         }
+
+        // ----------------------------------------------------------------------- //
+        // INIT
+        // ----------------------------------------------------------------------- //
+        // [1] prize_3      RM100: 8%
+        // [2] grand_prize  OSIM Bundle: 4%
+        // [3] prize_4      RM10: 10%
+        // [4] prize_2      RM200: 6%
+        // [5] prize_1      Philips TV: 2%
+        // [6] prize_0      No prize: 70%
+
+        $a_prize_id_index_mapping = array(
+            'prize_0'       => 'index_6',   // No prize: 70%
+            'grand_prize'   => 'index_2',   // OSIM Bundle: 4%
+            'prize_1'       => 'index_5',   // Philips TV: 2%
+            'prize_2'       => 'index_4',   // RM200: 6%
+            'prize_3'       => 'index_1',   // RM100: 8%
+            'prize_4'       => 'index_3',   // RM10: 10%
+        );
         
         $cond	= '';
          // GENERATE sql query
@@ -48,6 +67,8 @@ Class Spin extends Z_Controller
         $this->a_submission = $Q->result();
 
         $_SESSION['ss_Submission']	= $this->a_submission;
+
+        $this->spin_index   = str_replace('index_', '', $a_prize_id_index_mapping[$this->a_submission['spin_prize']]);
         // ----------------------------------------------------------------------- //
         // LOAD views and render
         // ----------------------------------------------------------------------- //

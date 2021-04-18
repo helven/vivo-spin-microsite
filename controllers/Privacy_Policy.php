@@ -1,5 +1,5 @@
 <?php
-Class Tnc extends Z_Controller
+Class Privacy_Policy extends Z_Controller
 {
 	function __construct()
 	{
@@ -8,7 +8,7 @@ Class Tnc extends Z_Controller
 	
 	function index()
 	{
-		$this->pageContent	= $this->p_load_view('tnc/index');
+		$this->pageContent	= $this->p_load_view('privacy_policy/index');
 		$this->p_load_view('theme_empty', TRUE);
 	}
 }

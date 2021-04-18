@@ -16,7 +16,7 @@
         <link rel="shortcut icon" type="image/ico" href="<?php echo base_url();?>media/images/favicon.ico">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="<?php echo ($this->o_MobileDetect->isMobile())?'width=768, user-scalable=no':'width=device-width, initial-scale=1, user-scalable=no';?>">
+        <meta name="viewport" content="<?php echo ($this->o_MobileDetect->isMobile())?'width=1310, user-scalable=no':'width=device-width, initial-scale=1, user-scalable=no';?>">
         
         <title><?php echo $this->config['title'];?></title>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -43,16 +43,35 @@
         <![endif]-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="<?php echo base_url();?>media/js/bootstrap/js/bootstrap.min.js"></script>
+        <script src="<?php echo base_url();?>media/js/generic.js"></script>
+        <script src="<?php echo base_url();?>media/js/validate.js"></script>
         <script><!--
             jQuery = jQuery.noConflict();
+            var addthis_config = {
+                data_track_clickback: false
+            }
+            global = {
+                fontSize        : 12,
+                animFast        : 0.15,
+                animNorm        : 0.2,
+                animSlow        : 0.4,
+                anim500         : 0.5,
+                //headerSize    : jQuery('#div_Header').height(),
+                loader          : '<img src="<?php echo base_url();?>media/images/loader/loader-24.gif" alt="loading..." style="vertical-align: middle;" />',
+                baseUrl         : '<?php echo base_url();?>',
+                platformUrl     : '',
+                mediaUrl        : '<?php echo base_url();?>media/',
+                language        : {
+                    reload_page : 'Reload Page',
+                }
+            };
         //-->
         </script>
-        <?php if($this->config['environment'] == 'live'){ ?>
-            <!-- Facebook Pixel Code -->
-            <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script', 'https://connect.facebook.net/en_US/fbevents.js');fbq('init', '576456686544138');</script>
-            <noscript><img height="1" width="1" style="display:none"src="https://www.facebook.com/tr?id=576456686544138&ev=PageView&noscript=1"/></noscript>
-            <!-- End Facebook Pixel Code -->
-        <?php } ?>
+        <style>
+        .zbox .main_slot .body {
+            max-height: <?php echo 100 / $this->zoom * 0.8;?>vh;
+        }
+        </style>
     </head>
     <body id="body_<?php echo ucfirst($this->platform);?>" class="page_fadein page_fadeout">
         <div id="div_PageLoader"><img src="<?php echo base_url();?>media/images/page_loader.svg" /></div>
@@ -63,16 +82,6 @@
         </div>
         <script type="text/javascript" src="<?php echo base_url();?>media/js/zbox/js/jQuery.zbox.js"></script>
         <script type="text/javascript" src="<?php echo base_url();?>media/js/scrollbar/jquery.scrollbar.min.js"></script>
-        <?php if($this->config['environment'] == 'live'){ ?>
-            <!-- Global site tag (gtag.js) - Google Analytics -->
-            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142305014-1"></script>
-            <script>
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'UA-142305014-1');
-            </script>
-        <?php } ?>
         <script><!--
         jQuery(document).ready(function(){
             
@@ -83,7 +92,39 @@
         jQuery(window).on('unload', function(){
             jQuery('body').addClass('page_fadeout');
         });
+        
+        function zbox_callback()
+        {
+            jQuery('.zbox .main_slot .body').addClass('scrollbar-dynamic');
+            
+            <?php //if($this->platform != 'desktop'){ ?>
+                if(jQuery('.zbox .body').height() >= jQuery(window).height() * <?php echo $this->zoom * 0.8;?> || <?php echo (($this->platform != 'desktop')?'true':'false');?>)
+                {
+                    jQuery('.zbox .main_slot').css({'top': '50%'});
+                }
+            <?php //}?>
+            jQuery('.zbox .main_slot .body').scrollbar({});
+        }
         //-->
         </script>
+        <?php if($this->platform == 'desktop'){ ?>
+            <style>
+            html {zoom: <?php echo $this->zoom;?>;}
+            <?php if($this->customScrollBar){ ?>
+                .scroll_wrapper {max-height: <?php echo 100 / $this->zoom;?>vh;max-width: <?php echo 100 / $this->zoom;?>vw;}
+                body {overflow:hidden;}
+            <?php }?>
+            </style>
+            <script><!--
+            <?php if($this->customScrollBar){ ?>
+                jQuery(document).ready(function(){
+                    jQuery('.scroll_wrapper').scrollbar({
+                        "onScroll": function(y, x){}
+                    });
+                });
+            <?php }?>
+            //-->
+            </script>
+        <?php } ?>
     </body>
 </html>

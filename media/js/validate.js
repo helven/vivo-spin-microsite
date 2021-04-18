@@ -23,6 +23,20 @@ function is_integer(str)
     return true;
 }
 
+function is_positive_int(str)
+{
+    if(!is_integer(str))
+    {
+        return false;
+    }
+    if(str < 0)
+    {
+        return false;
+    }
+
+    return true
+}
+
 function is_digit (c)
 {
     return ((c >= "0") && (c <= "9"));

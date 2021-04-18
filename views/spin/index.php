@@ -56,7 +56,7 @@
         width: 332px;
     }
     .zbox_prize_container {
-        background: transparent url('<?php echo base_url();?>media/images/<?php echo $this->pageName;?>/prize-<?php echo $this->a_submission['spin_prize'];?>.jpg') no-repeat center 0;
+        background: transparent url('<?php echo base_url();?>media/images/<?php echo $this->pageName;?>/prize-<?php echo $this->spin_index;?>.jpg') no-repeat center 0;
     }
 </style>
 <div class="container">
@@ -77,6 +77,17 @@
         </div>
     </div>
 </div>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId            : 'your-app-id',
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v10.0'
+    });
+  };
+</script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 <script src="<?php echo base_url();?>media/js/Winwheel.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
 <script>
@@ -85,6 +96,12 @@ var is_spinning   = false;
 var total_prize     = 6;
 var prize_angle     = 360 / 6;
 var spin_duration   = 5;
+var o_fb_share_spec	= {
+    width	: 768,
+    height	: 500
+};
+o_fb_share_spec.top     = (screen.height / 2.5) - (o_fb_share_spec.height / 2);
+o_fb_share_spec.left    = (screen.width / 2) - (o_fb_share_spec.width / 2);
 jQuery(document).ready(function(){
     // Increment the idle time counter every minute.
     var idleInterval = setInterval(function(){
@@ -139,11 +156,13 @@ jQuery(document).ready(function(){
                 // SHOW prize
                 jQuery(this).zboxOpen({
                     text: jQuery('#div_PopupPrize').html(),//jQuery('<div>').append(jQuery('#div_PopupPrize').clone()).html(),
-                    callback: function(){}
+                    callback: function(){
+                        
+                    }
                 });
 
                 <?php if(isset($this->a_submission['spin_status']) && $this->a_submission['spin_status'] == 0){ ?>
-                    <?php if($this->a_submission['spin_prize'] != 6){ ?>
+                    <?php if($this->spin_index != 6){ ?>
                         audio_win.currentTime = 0;
                         audio_win.play();
                     <?php }else{ ?>
@@ -151,7 +170,6 @@ jQuery(document).ready(function(){
                         audio_lose.play();
                     <?php } ?>
                 <?php } ?>
-                return;
                 
                 <?php if(isset($this->a_submission['spin_status']) && $this->a_submission['spin_status'] == 0){ ?>
                 jQuery.ajax({
@@ -222,6 +240,23 @@ jQuery(document).ready(function(){
 
         jQuery('#btn_Spin').css('opacity', 0.5);
     <?php } ?>
+    jQuery('.zbox_share_button.facebook').click(function(){
+        window.open('https://www.facebook.com/sharer.php?t=&u=<?php echo urlencode(base_url());?>', "Post to Facebook", 'width=' + o_fb_share_spec.width + ',height=' + o_fb_share_spec.height + ',top=' + o_fb_share_spec.top + ',left=' + o_fb_share_spec.left);
+    });
+    jQuery('.zbox_share_button.wechat').click(function(){
+        <?php //if($this->platform == 'desktop'){ ?>
+            o_wechat_share_spec = {};
+            o_wechat_share_spec.width   = 300;
+            o_wechat_share_spec.height  = 300;
+            o_wechat_share_spec.top     = (screen.height / 2.5) - (o_wechat_share_spec.height / 2);
+            o_wechat_share_spec.left    = (screen.width / 2) - (o_wechat_share_spec.width / 2);
+            window.open('https://chart.apis.google.com/chart?cht=qr&chs=154x154&chld=Q%7C0&chl=<?php echo urlencode(base_url());?>', "Share with WeChat", 'width=' + o_wechat_share_spec.width + ',height=' + o_wechat_share_spec.height + ',top=' + o_wechat_share_spec.top + ',left=' + o_wechat_share_spec.left);
+        <?php /*}else{ ?>
+            jQuery(this).zboxOpen({
+                text: '<div id="div_BitLyShare" class="input_textbox"><input type="textbox" class="text" value="<?php echo base_url();?>" readonly /></div><button id="btn_ShareWeChat">Copy URL and open WeChat</button>'
+            });
+        <?php }*/ ?>
+    });
 });
 jQuery(window).on('load', function(){
     
@@ -234,7 +269,7 @@ function calculate_stop()
     // 4: 151-180
     // 5: 211-240
     // 6: 271-300
-    prize   = <?php echo $this->a_submission['spin_prize'];?>;
+    prize   = <?php echo $this->spin_index;?>;
     
     start   = (prize * prize_angle) - (prize_angle / 2) + 1 - prize_angle;
     if(start < 0)

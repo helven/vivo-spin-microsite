@@ -8,9 +8,9 @@
         <meta property="fb:admins" content="0"/>
         <meta property="og:title" content="<?php echo $this->config['og_title'];?>" />
         <meta property="og:description" content="<?php echo $this->config['og_desc'];?>" />
-        <meta property="og:url" content="https://www.baskinrobbins.com.my/welcometobrday/" />
+        <meta property="og:url" content="<?php echo base_url();?>" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://www.baskinrobbins.com.my/welcometobrday/media/images/og_image.jpg" />
+        <meta property="og:image" content="<?php echo base_url();?>/media/images/og_image.jpg" />
         <meta property="og:site_name" content="baskinrobbins.com">
         
         <link rel="shortcut icon" type="image/ico" href="<?php echo base_url();?>media/images/favicon.ico">
@@ -69,7 +69,7 @@
                 <div class="footer_container">
                     <div class="footer_left">
                         <div>
-                            <a id="a_Privacy" href="<?php echo base_url();?>privacy_policy/" target="_blank">Privacy Policy</a>
+                            <a id="a_Privacy" href="<?php echo base_url();?>privacy-policy/" target="_blank">Privacy Policy</a>
                             | <a id="a_TnC" href="<?php echo base_url();?>tnc/" target="_blank">Terms of Use</a>
                         </div>
                         <div di="div_Copyright">

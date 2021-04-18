@@ -223,11 +223,12 @@ jQuery(document).ready(function(){
         jQuery('#div_LocationList').fadeToggle(100);
     });
     jQuery('#ul_LocationList span').click(function(){
+        jQuery(this).removeClass('expanded');
         jQuery('#div_LocationList').fadeToggle(100);
         
         jQuery('#hdd_Location').val(jQuery(this).data('key'));
         
-        jQuery('#div_Location span.text').text(jQuery(this).text());
+        jQuery('#div_Location span.text').addClass('selected').text(jQuery(this).text());
         
         if(!is_empty(jQuery('#hdd_Location').val()))
         {
@@ -283,7 +284,12 @@ jQuery(document).ready(function(){
         }
         if(is_empty(jQuery('#txt_Phone').val()))
         {
-            jQuery('#span_ErrorPhone').show();
+            jQuery('#span_ErrorPhone').text('Please fill in your mobile no.').show();
+            formError	= true;
+        }
+        else if(!is_positive_int(jQuery('#txt_Phone').val()))
+        {
+            jQuery('#span_ErrorPhone').text('Please fill in a valid mobile no.').show();
             formError	= true;
         }
         if(is_empty(jQuery('#txt_IMEI').val()))
