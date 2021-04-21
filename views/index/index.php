@@ -134,9 +134,9 @@
                             <span class="checkbox"></span>
                             <span class="text">
                                 <?php if(strtolower($this->geoCountryCode) == 'sg'){ ?>
-                                    I agree to the <a id="a_IndexTnC" href="<?php echo base_url();?>tnc/" target="_blank">Terms and Conditions</a> and <a id="a_IndexPrivacy" href="http://www.baskinrobbins.com.sg/content/baskinrobbins/en/privacypolicy.html" target="_blank">Privacy Policy</a>.
+                                    I agree to the <a id="a_IndexTnC" href="<?php echo base_url();?>media/vivo_campaign_tnc.pdf" target="_blank">Terms and Conditions</a> and <a id="a_IndexPrivacy" href="<?php echo base_url();?>media/vivo_privacy_policy.pdf" target="_blank">Privacy Policy</a>.
                                 <?php }else{ ?>
-                                    I agree to the <a id="a_IndexTnC" href="<?php echo base_url();?>tnc/" target="_blank">Terms and Conditions</a> and <a id="a_IndexPrivacy" href="https://baskinrobbins.com.my/content/baskinrobbins/en/privacypolicy.html" target="_blank">Privacy Policy</a>.
+                                    I agree to the <a id="a_IndexTnC" href="<?php echo base_url();?>media/vivo_campaign_tnc.pdf" target="_blank">Terms and Conditions</a> and <a id="a_IndexPrivacy" href="<?php echo base_url();?>media/vivo_privacy_policy.pdf" target="_blank">Privacy Policy</a>.
                                 <?php } ?>
                             </span>
                         </div>

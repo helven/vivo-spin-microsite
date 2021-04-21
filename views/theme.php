@@ -2,8 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
     <head>
-        <meta http-equiv="keywords" content="Baskin Robbins"/>
-        <meta http-equiv="description" content="Baskin-Robbins ice cream.  Home of delicious cones, shakes, treats, cakes, pies, and more!"/>
+        <meta http-equiv="keywords" content="Vivo ,  Hati rapat raya berkat, spin & win, vivo campaign"/>
+        <meta http-equiv="description" content="<?php echo $this->config['og_desc'];?>"/>
         
         <meta property="fb:admins" content="0"/>
         <meta property="og:title" content="<?php echo $this->config['og_title'];?>" />
@@ -69,20 +69,19 @@
                 <div class="footer_container">
                     <div class="footer_left">
                         <div>
-                            <a id="a_Privacy" href="<?php echo base_url();?>privacy-policy/" target="_blank">Privacy Policy</a>
-                            | <a id="a_TnC" href="<?php echo base_url();?>tnc/" target="_blank">Terms of Use</a>
+                            <a id="a_Privacy" href="<?php echo base_url();?>media/vivo_privacy_policy.pdf" target="_blank">Privacy Policy</a>
+                            | <a id="a_TnC" href="<?php echo base_url();?>media/vivo_campaign_tnc.pdf" target="_blank">Terms of Use</a>
                         </div>
                         <div di="div_Copyright">
                             Copyright 2021 &copy; VIVO Malaysia. All Rights Reserved.
                         </div>
                     </div>
                     <div class="footer_right">
-                        <a id="a_SocialFacebook" href="" target="_blank" class="footer_social_button"></a>
-                        <a id="a_SocialWeChat" href="" target="_blank" class="footer_social_button"></a>
-                        <a id="a_SocialTwitter" href="" target="_blank" class="footer_social_button"></a>
-                        <a id="a_SocialYoutube" href="" target="_blank" class="footer_social_button"></a>
-                        <a id="a_SocialInstagram" href="" target="_blank" class="footer_social_button"></a>
-                        <a id="a_SocialWebsite" href="" target="_blank" class="footer_social_button"></a>
+                        <a id="a_SocialFacebook" href="https://www.facebook.com/vivoMalaysia" target="_blank" class="footer_social_button"></a>
+                        <a id="a_SocialTwitter" href="https://twitter.com/vivo_Malaysia" target="_blank" class="footer_social_button"></a>
+                        <a id="a_SocialYoutube" href="https://www.youtube.com/channel/UCLaKL3B4OYKBO1LHIiSWd5w" target="_blank" class="footer_social_button"></a>
+                        <a id="a_SocialInstagram" href="https://www.instagram.com/vivo_Malaysia/" target="_blank" class="footer_social_button"></a>
+                        <a id="a_SocialWebsite" href="https://www.vivo.com/my" target="_blank" class="footer_social_button"></a>
                     </div>
                 </div>
             </footer>
