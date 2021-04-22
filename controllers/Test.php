@@ -19,6 +19,12 @@ Class Test extends Z_Controller
             unset($_SESSION['ss_Msgbox']);
         }
     }
+
+    function social()
+    {
+        $this->p_render('test/social', TRUE);
+    }
+
     function send_email()
     {
         $this->msg	= '';

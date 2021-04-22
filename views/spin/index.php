@@ -154,6 +154,7 @@ jQuery(document).ready(function(){
                 //is_spinning   = false;
 
                 // SHOW prize
+                init_sharethis();
                 jQuery(this).zboxOpen({
                     text: jQuery('#div_PopupPrize').html(),//jQuery('<div>').append(jQuery('#div_PopupPrize').clone()).html(),
                     callback: function(){
@@ -240,7 +241,7 @@ jQuery(document).ready(function(){
 
         jQuery('#btn_Spin').css('opacity', 0.5);
     <?php } ?>
-    jQuery('.zbox_share_button.facebook').click(function(){
+    /*jQuery('.zbox_share_button.facebook').click(function(){
         window.open('https://www.facebook.com/sharer.php?t=&u=<?php echo urlencode(base_url());?>', "Post to Facebook", 'width=' + o_fb_share_spec.width + ',height=' + o_fb_share_spec.height + ',top=' + o_fb_share_spec.top + ',left=' + o_fb_share_spec.left);
     });
     jQuery('.zbox_share_button.wechat').click(function(){
@@ -256,7 +257,7 @@ jQuery(document).ready(function(){
                 text: '<div id="div_BitLyShare" class="input_textbox"><input type="textbox" class="text" value="<?php echo base_url();?>" readonly /></div><button id="btn_ShareWeChat">Copy URL and open WeChat</button>'
             });
         <?php }*/ ?>
-    });
+    });*/
 });
 jQuery(window).on('load', function(){
     

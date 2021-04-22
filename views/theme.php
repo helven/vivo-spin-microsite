@@ -45,10 +45,21 @@
         <script src="<?php echo base_url();?>media/js/bootstrap/js/bootstrap.min.js"></script>
         <script src="<?php echo base_url();?>media/js/generic.js"></script>
         <script src="<?php echo base_url();?>media/js/validate.js"></script>
+
         <script><!--
             jQuery = jQuery.noConflict();
             var addthis_config = {
                 data_track_clickback: false
+            }
+
+            function init_sharethis()
+            {
+                jQuery('#script_ShareThis').remove();
+                st  = document.createElement('script');
+                st.src  = 'https://platform-api.sharethis.com/js/sharethis.js#property=6079d7e7c70c71001196ace4&product=custom-share-buttons';
+                st.id   = 'script_ShareThis';
+                st.async= 'async';
+                document.head.appendChild(st);
             }
         //-->
         </script>

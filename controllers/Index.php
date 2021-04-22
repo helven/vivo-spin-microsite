@@ -55,11 +55,26 @@ Class Index extends Z_Controller
         // [6] prize_0      No prize: 70%
         $a_prize_id_index_mapping = array(
             'prize_0'       => 'index_6',   // No prize: 70%
-            'grand_prize'   => 'index_2',   // OSIM Bundle: 4%
-            'prize_1'       => 'index_5',   // Philips TV: 2%
+            'grand_prize'   => 'index_2',   // OSIM Bundle: 2%
+            'prize_1'       => 'index_5',   // Philips TV: 4%
             'prize_2'       => 'index_4',   // RM200: 6%
             'prize_3'       => 'index_1',   // RM100: 8%
             'prize_4'       => 'index_3',   // RM10: 10%
+        );
+        
+        $a_prize_index_percentage_pool  = array(
+            1,1,1,1,1,1,1,1,        // 8%
+            2,2,                    // 2%
+            3,3,3,3,3,3,3,3,3,3,    // 10%
+            4,4,4,4,4,4,            // 6%
+            5,5,5,5,                // 4%
+            6,6,6,6,6,6,6,6,6,6,    // 70%
+            6,6,6,6,6,6,6,6,6,6,
+            6,6,6,6,6,6,6,6,6,6,
+            6,6,6,6,6,6,6,6,6,6,
+            6,6,6,6,6,6,6,6,6,6,
+            6,6,6,6,6,6,6,6,6,6,
+            6,6,6,6,6,6,6,6,6,6,
         );
 
         $cond	= '';
@@ -245,7 +260,10 @@ Class Index extends Z_Controller
 
                     // GET prize inventory
                     $sql    = " SELECT * from prizes WHERE area_id = {$_POST['hdd_Location']} AND date = '".date('Y-m-d')."'";
-                    $sql    = " SELECT * from prizes WHERE area_id = {$_POST['hdd_Location']} AND date = '2021-05-01'";
+                    if($this->config['environment'] == 'live')
+                    {
+                        $sql    = " SELECT * from prizes WHERE area_id = {$_POST['hdd_Location']} AND date = '2021-05-01'";
+                    }
                     $Q  = $this->db->query($sql);
 
                     $a_prize    = $Q->result();
@@ -254,21 +272,6 @@ Class Index extends Z_Controller
                     $a_prize['prize_2']     = (int)$a_prize['prize_2'];
                     $a_prize['prize_3']     = (int)$a_prize['prize_3'];
                     $a_prize['prize_4']     = (int)$a_prize['prize_4'];
-
-                    $a_prize_index_percentage_pool  = array(
-                        1,1,1,1,1,1,1,1,        // 8%
-                        2,2,                    // 2%
-                        3,3,3,3,3,3,3,3,3,3,    // 10%
-                        4,4,4,4,4,4,            // 6%
-                        5,5,5,5,                // 4%
-                        6,6,6,6,6,6,6,6,6,6,    // 70%
-                        6,6,6,6,6,6,6,6,6,6,
-                        6,6,6,6,6,6,6,6,6,6,
-                        6,6,6,6,6,6,6,6,6,6,
-                        6,6,6,6,6,6,6,6,6,6,
-                        6,6,6,6,6,6,6,6,6,6,
-                        6,6,6,6,6,6,6,6,6,6,
-                    );
 
                     $stop   = FALSE;
                     do
