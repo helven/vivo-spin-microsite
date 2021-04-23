@@ -260,13 +260,17 @@ Class Index extends Z_Controller
 
                     // GET prize inventory
                     $sql    = " SELECT * from prizes WHERE area_id = {$_POST['hdd_Location']} AND date = '".date('Y-m-d')."'";
-                    if($this->config['environment'] == 'live')
+                    if($this->config['environment'] != 'live')
                     {
                         $sql    = " SELECT * from prizes WHERE area_id = {$_POST['hdd_Location']} AND date = '2021-05-01'";
                     }
                     $Q  = $this->db->query($sql);
 
                     $a_prize    = $Q->result();
+                    if($Q->num_rows() <= 0)
+                    {
+                        $a_prize['id']      = 0;
+                    }
                     $a_prize['grand_prize'] = (int)$a_prize['grand_prize'];
                     $a_prize['prize_1']     = (int)$a_prize['prize_1'];
                     $a_prize['prize_2']     = (int)$a_prize['prize_2'];
