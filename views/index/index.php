@@ -142,7 +142,7 @@
                         </div>
                         <span id="span_ErrorAgreeTnC" class="speech_bubble error">Please agree to Terms and Conditions &amp; Privacy Policy.</span>
                     </div>
-                    <button id="btn_Redeem" type="button">Redeem Your Prize!</button>
+                    <button id="btn_Redeem" type="button">Submit</button>
                 </form>
             </div>
         </div>
