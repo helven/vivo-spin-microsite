@@ -10,8 +10,8 @@
     <div class="zbox_share_container">
         <div class="zbox_share_title">Share with your friends</div>
         <div class="zbox_share_buttons">
-            <a href="javascript:void(0)" class="zbox_share_button facebook st-custom-button" data-network="facebook"></a>
-            <a href="javascript:void(0)" class="zbox_share_button wechat st-custom-button" data-network="wechat"></a>
+            <a href="javascript:void(0)" class="zbox_share_button facebook st-custom-button" data-network="facebook" data-url="<?php echo base_url();?>"></a>
+            <a href="javascript:void(0)" class="zbox_share_button wechat st-custom-button" data-network="wechat" data-url="<?php echo base_url();?>"></a>
         </div>
     </div>
 </div>

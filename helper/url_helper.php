@@ -55,5 +55,10 @@ function media_url($slash=TRUE)
  */
 function add_end_slash($str)
 {
-    return $str.'/';
+    if(substr($str, -1) != '/')
+    {
+        return $str.'/';
+    }
+    
+    return $str;
 }
