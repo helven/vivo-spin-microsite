@@ -39,7 +39,7 @@ Class Index extends Z_Controller
             'area_3'    => 'Northern Selangor 雪北',
             'area_4'    => 'Southern Selangor 雪南',
             'area_5'    => 'Perak 霹雳',
-            'area_5'    => 'Pahang / Malacca 彭亨 / 马六甲',
+            'area_6'    => 'Pahang / Malacca 彭亨 / 马六甲',
             'area_7'    => 'Penang 大槟城',
             'area_8'    => 'Kelantan 吉兰丹',
             'area_9'    => 'Johor 柔佛',
