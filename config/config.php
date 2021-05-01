@@ -2,7 +2,7 @@
 global $config;
 $config = array();
 $config['protocol'] = (stripos($_SERVER['SERVER_PROTOCOL'],'https') === true || $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://';
-$config['base_url'] = $_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME']);
+//$config['base_url'] = $_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME']);
 $config['base_url'] = $config['protocol'].((isset($config['base_url']))?$config['base_url']:'vivo-spin-microsite.test');
 
 if(strpos($config['base_url'], 'vivocampaign.com/staging') || strpos($config['base_url'], 'omega.sfdns.net/~vivocamp/staging'))
