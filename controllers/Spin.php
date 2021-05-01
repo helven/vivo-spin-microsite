@@ -23,7 +23,7 @@ Class Spin extends Z_Controller
 */
     function index()
     {
-        if($this->config['environment'] == 'live' && date('Y-m-d H:i:s') >= '2020-05-17 00:00:00')
+        if($this->config['environment'] == 'live' && date('Y-m-d H:i:s') >= '2021-05-17 00:00:00')
         {
             redirect(base_url().'index/campaign-end/');
         }
