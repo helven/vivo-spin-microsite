@@ -6,7 +6,16 @@
 </div>
 
 <div id="div_PopupPrize" class="zbox_text_container" style="display:none;">
-    <div class="zbox_prize_container"></div>
+    <div class="zbox_prize_container <?php echo (isset($this->spin_index) && $this->spin_index != '')?'prize_'.$this->spin_index:'';?>">
+        <div class="zbox_prize_submission">
+            <div class="zbox_prize_submission_detail">
+                <b>Name:</b> <?php echo (isset($_SESSION['ss_Submission']['name']) && $_SESSION['ss_Submission']['name'] != '')?$_SESSION['ss_Submission']['name']:'';?><br />
+                <b>Phone:</b> <?php echo (isset($_SESSION['ss_Submission']['phone']) && $_SESSION['ss_Submission']['phone'] != '')?$_SESSION['ss_Submission']['phone']:'';?><br />
+                <b>IMEI:</b> <?php echo (isset($_SESSION['ss_Submission']['imei']) && $_SESSION['ss_Submission']['imei'] != '')?$_SESSION['ss_Submission']['imei']:'';?><br />
+                <b>Location:</b> <?php echo (isset($_SESSION['ss_Submission']['phone']) && $_SESSION['ss_Submission']['phone'] != '')?$this->a_area['area_'.$_SESSION['ss_Submission']['phone']]:'';?>
+            </div>
+        </div>
+    </div>
     <div class="zbox_share_container">
         <div class="zbox_share_title">Share with your friends</div>
         <div class="zbox_share_buttons">

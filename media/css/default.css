@@ -382,14 +382,35 @@ span.speech_bubble.error {
  * zbox prize
  * ----------------------------------------------------------------------- */
 .zbox_prize_container {
-    height: 343px;
+    /*height: 343px;*/
+    height: 443px;
     margin-top: 69px;
+    position: relative;
     width: 801px;
 }
+    .zbox_prize_submission {
+        border-top: 1px solid #454545;
+        font-size: 19.45px;
+        padding-top: 23px;
+        position: absolute;
+        left: 353px;
+        top: 318px;
+        width: 442px;
+    }
+    .zbox_prize_container.prize_6 .zbox_prize_submission {
+        left: 180px;
+        text-align: center;
+        top: 300px;
+    }
+    .zbox_prize_submission_detail {
+        display: inline-block;
+        text-align: left;
+    }
 .zbox_share_container  {
     display: flex;
     flex-direction: column;
     margin-top: 40px;
+    margin-bottom: 33px;
 }
     .zbox_share_title,
     .zbox_share_buttons {

@@ -35,6 +35,19 @@ Class Spin extends Z_Controller
         // ----------------------------------------------------------------------- //
         // INIT
         // ----------------------------------------------------------------------- //
+        $this->a_area = array(
+            'area_1'    => 'vivo E-Store',
+            'area_2'    => 'Kuala Lumpur 吉隆坡',
+            'area_3'    => 'Northern Selangor 雪北',
+            'area_4'    => 'Southern Selangor 雪南',
+            'area_5'    => 'Perak 霹雳',
+            'area_6'    => 'Pahang / Malacca 彭亨 / 马六甲',
+            'area_7'    => 'Penang 大槟城',
+            'area_8'    => 'Kelantan 吉兰丹',
+            'area_9'    => 'Johor 柔佛',
+            'area_10'   => 'Sabah 沙巴',
+            'area_11'   => 'Sarawak 沙捞越',
+        );
         // [1] prize_3      RM100: 8%
         // [2] grand_prize  OSIM Bundle: 4%
         // [3] prize_4      RM10: 10%
