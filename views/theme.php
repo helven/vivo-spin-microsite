@@ -11,7 +11,7 @@
         <meta property="og:url" content="<?php echo base_url();?>" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="<?php echo base_url();?>/media/images/og_image.jpg" />
-        <meta property="og:site_name" content="baskinrobbins.com">
+        <meta property="og:site_name" content="vivocampaign.com">
         
         <link rel="shortcut icon" type="image/ico" href="<?php echo base_url();?>media/images/favicon.ico">
         <meta charset="utf-8">
@@ -28,6 +28,26 @@
         <link rel="stylesheet" href="<?php echo base_url();?>media/js/scrollbar/jquery.scrollbar.css" type="text/css" media="screen, projection" />
         <link rel="stylesheet" href="<?php echo base_url();?>media/js/zbox/css/jQuery.zbox.css" type="text/css" media="screen, projection" />
         <link rel="stylesheet" href="<?php echo base_url();?>media/css/<?php echo $this->platform;?>.css" type="text/css" media="screen, projection" />
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-196214715-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-196214715-1');
+            //ga('create', 'UA-196214715-1', 'auto');
+        </script>
+        <!-- Google Analytics -->
+        <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-196214715-1', 'auto');
+        </script>
+        <!-- End Google Analytics -->
         <!--[if IE]>
         <style type="text/css">
             .clearfix {
@@ -102,21 +122,7 @@
         <script><!--
         jQuery(document).ready(function(){
             jQuery('#ul_LocationList').scrollbar({});
-            jQuery(window).resize(function(){
-                resize();
-            });
             resize();
-            function resize()
-            {
-                if((jQuery('.site_container').height() * <?php echo $this->zoom;?>) < jQuery(window).height())
-                {
-                    jQuery('html').addClass('float_bottom_footer');
-                }
-                else
-                {
-                    jQuery('html').removeClass('float_bottom_footer');
-                }
-            }
             
             /*jQuery('#a_Privacy').click(function(){
                 jQuery(this).zboxOpen({
@@ -136,12 +142,27 @@
                 <?php unset($_SESSION['ss_Msgbox']);?>
             <?php } ?>
         });
+        jQuery(window).resize(function(){
+            resize();
+        });
         jQuery(window).on('load', function(){
             jQuery('body').removeClass('page_fadeout');
         });
         jQuery(window).on('unload', function(){
             jQuery('body').addClass('page_fadeout');
         });
+        
+        function resize()
+        {
+            if((jQuery('.site_container').height() * <?php echo $this->zoom;?>) < jQuery(window).height())
+            {
+                jQuery('html').addClass('float_bottom_footer');
+            }
+            else
+            {
+                jQuery('html').removeClass('float_bottom_footer');
+            }
+        }
 
         function msgbox(title, message)
         {

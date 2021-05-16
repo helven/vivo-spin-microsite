@@ -227,7 +227,7 @@ Class Index extends Z_Controller
                     }
 
                     $a_submission               = $a_submission['a_data'];
-                    $_SESSION['ss_Submission']	= $a_submission;
+                    $_SESSION['ss_Submission']  = $a_submission;
                     
                     redirect(base_url().'spin');
                     exit;

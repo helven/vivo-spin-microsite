@@ -1,9 +1,4 @@
 <style>
-    body.debug {
-        background-image: url('<?php echo base_url();?>media/images/<?php echo $this->pageName;?>/ref.jpg');
-        background-position: center 0;
-        background-repeat: no-repeat;
-    }
     body {
         background: transparent url('<?php echo base_url();?>media/images/<?php echo $this->pageName;?>/top.png') no-repeat center 0;
     }
@@ -220,11 +215,14 @@ jQuery(document).ready(function(){
 
     jQuery('#div_Location').click(function(){
         jQuery(this).toggleClass('expanded');
-        jQuery('#div_LocationList').fadeToggle(100);
+        jQuery('#div_LocationList').toggle();
+        setTimeout(function(){
+            resize();
+        }, 10);
     });
     jQuery('#ul_LocationList span').click(function(){
         jQuery(this).removeClass('expanded');
-        jQuery('#div_LocationList').fadeToggle(100);
+        jQuery('#div_LocationList').toggle();
         
         jQuery('#hdd_Location').val(jQuery(this).data('key'));
         
@@ -234,6 +232,9 @@ jQuery(document).ready(function(){
         {
             jQuery('#span_ErrorLocation').hide();
         }
+        setTimeout(function(){
+            resize();
+        }, 10);
     });
 	
     jQuery('.input_checkbox').click(function(e){

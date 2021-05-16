@@ -26,6 +26,7 @@ Class Spin extends Z_Controller
         if($this->config['environment'] == 'live' && date('Y-m-d H:i:s') >= '2021-05-17 00:00:00')
         {
             redirect(base_url().'index/campaign-end/');
+            exit;
         }
         if(!isset($_SESSION['ss_Submission']))
         {
@@ -65,8 +66,8 @@ Class Spin extends Z_Controller
         );
         
         $cond	= '';
-         // GENERATE sql query
-         $sql	= " SELECT *
+        // GENERATE sql query
+        $sql	= " SELECT *
                     FROM `submissions`
                     WHERE submissions.id = '{$_SESSION['ss_Submission']['id']}'
                         AND status = 1
