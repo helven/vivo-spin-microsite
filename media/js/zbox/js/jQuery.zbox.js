@@ -37,7 +37,7 @@
 					}
 				});
 				
-				$(document).on('click', '.zbox_close, .zbox .overlay', function(){
+				$(document).on('click', '.zbox_close', function(){
 					o_Zbox	= $(this).parents('.zbox');
 					o_Zbox.css({opacity: 0});
 					setTimeout(function(){
@@ -150,7 +150,7 @@
 			
 			function _init()
 			{
-				$(document).on('click', '.zbox_close, .zbox .overlay', function(){
+				$(document).on('click', '.zbox_close', function(){
 					o_Zbox	= $(this).parents('.zbox');
 					o_Zbox.css({opacity: 0});
 					setTimeout(function(){
