@@ -61,7 +61,11 @@ jQuery(document).ready(function(){
         text: jQuery('#div_PopupCampaignEnd').html(),//jQuery('<div>').append(jQuery('#div_PopupPrize').clone()).html(),
         callback: function(){
             jQuery('a.zbox_close').remove();
-            jQuery('.zbox .main_slot').css('min-height', 'auto').css('min-width', 'auto')
+            jQuery('.zbox')[0].style.setProperty('height', '100%', 'important');
+            jQuery('.zbox')[0].style.setProperty('width', '100%', 'important');
+            jQuery('.zbox .main_slot').css('min-height', 'auto').css('min-width', 'auto');
+            jQuery('.zbox .overlay')[0].style.setProperty('display', 'block', 'important');
+            jQuery('.zbox .overlay').css('opacity', '0.53');
         }
     });
 });
